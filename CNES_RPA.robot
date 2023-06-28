@@ -2,7 +2,6 @@
 Documentation    Teste Tecnico RobotFramework
 Resource         resources/resources.robot
 
-
 *** Test Cases ***
 Passo 1: buscar e validar arquivo CSV
     Verificar se o arquivo de input existe     # Se o arquivo não existe a execução será abortada
@@ -10,7 +9,6 @@ Passo 1: buscar e validar arquivo CSV
 
 Passo 2: abrir site e inserir dados extraídos
     Abrir site CNES
-    #Verificar se os campos carregaram
     @{dict_receive}=    Read Csv File To List    ${csv_file}
     FOR     ${line_to_read}    IN  @{dict_receive}
         IF  "${line_to_read}[0]" != "UF"
