@@ -26,5 +26,6 @@ O arquivo CSV contendo os registros pesquisados será salvo na pasta: C:/temp/Do
 Decisões tomadas
 ================
 - Foi implementado para que o robô busque pelas 5 primeiras páginas conforme a requisição bônus.
+- Foi adicionado uma biblioteca em um arquivo JSON para que o robô leia a sigla dos estados e consiga fazer o input no site seguinto o que está escrito no campo a ser preenchido.
 - O RPA está baixando o PDF lendo diretamente a tabela, sem precisar fazer a pesquisa novamente, achei que seria mais performático.
 - Foram adicionados poucos "Sleeps" principalmente por conta do download do PDF, por conta de que não há mensagem de sucesso para o download. Além disso a barra de download sai da tela antes dele finalizar.
