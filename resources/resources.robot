@@ -45,6 +45,35 @@ Inserir dado Estado via CSV
         Log To Console    Não foi possível adicionar o dado Estado ao CSV
     END
 
+Tratar caracteres especiais
+    [Arguments]    ${var_to_change}
+    ${normal_string}=    Convert To Upper Case    ${var_to_change}
+    ${normal_string}=    Replace String    ${normal_string}    Ã    A
+    ${normal_string}=    Replace String    ${normal_string}    Õ    O
+    ${normal_string}=    Replace String    ${normal_string}    Á    Á
+    ${normal_string}=    Replace String    ${normal_string}    Ó    O
+    ${normal_string}=    Replace String    ${normal_string}    É    E
+    ${normal_string}=    Replace String    ${normal_string}    Í    I
+    ${normal_string}=    Replace String    ${normal_string}    Ú    U
+    ${normal_string}=    Replace String    ${normal_string}    Â    A
+    ${normal_string}=    Replace String    ${normal_string}    Û    U
+    ${normal_string}=    Replace String    ${normal_string}    Ô    O
+    ${normal_string}=    Replace String    ${normal_string}    Ç    C
+    [Return]    ${normal_string}
+
+Tratar arquivo CSV
+    ${Test}    Get File    ${csv_file}    encoding=UTF-8    encoding_errors=strict
+    Create File    ${csv_file}    ${Test}    encoding=UTF-8
+    ${lines}=    Split To Lines    ${Test}
+    Create File    ${csv_file}
+    FOR     ${line}    IN  @{lines}
+        ${split_uf}=    Split String    ${line}     ,
+        ${tratar_municipio}   Set Variable    ${split_uf}[1]
+        ${municipio_tratado}=     Tratar Caracteres Especiais    ${tratar_municipio}
+        ${to_append}    Set Variable    ${split_uf}[0],${municipio_tratado}\n
+        Append To File    ${csv_file}   ${to_append}
+    END
+
 Inserir dado Município via CSV
     [Arguments]    ${municipio_select}
     TRY
@@ -60,6 +89,7 @@ Ler CSV e inserir dados no site
         ${json}=                Get file  resources/estados.json
         ${object}=              Evaluate    json.loads('''${json}''')   json
         ${municipio_csv}        Set Variable    ${line_to_read}[1]
+        ${especial_char}=       Tratar Caracteres Especiais    ${municipio_csv}
         ${municipio_tratado}    Convert To Upper Case    ${municipio_csv}
         ${estado_tratado}       Set Variable    ${object["${line_to_read}[0]"]}
         Inserir Dado Estado Via CSV    ${estado_tratado}

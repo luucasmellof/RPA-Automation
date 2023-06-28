@@ -2,10 +2,11 @@
 Documentation    Teste Tecnico RobotFramework
 Resource         resources/resources.robot
 
-*** Test Cases ***
+*** Tasks ***
 Passo 1: buscar e validar arquivo CSV
     Verificar se o arquivo de input existe     # Se o arquivo não existe a execução será abortada
     Zerar Arquivo De Exportação A Cada Execução
+    Tratar Arquivo CSV
 
 Passo 2: abrir site e inserir dados extraídos
     Abrir site CNES
